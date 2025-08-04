@@ -1,0 +1,66 @@
+server:
+  port: 8000
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: education-platform-api
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:skcc-tools-aihack25-postgres.postgres.database.azure.com}:${DB_PORT:5432}/${DB_NAME:postgresdb23}
+    username: ${DB_USER:postgresuser23}
+    password: ${DB_PASSWORD:postgresuser23}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 10
+      connection-timeout: 30000
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          time_zone: Asia/Seoul
+  h2:
+    console:
+      enabled: false
+  jwt:
+    secret: ${JWT_SECRET:skcc-aihack25-team23-2hong-secret-key-32bytes}
+    access-token-expiration: 1800000  # 30분
+    refresh-token-expiration: 604800000  # 7일
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    default-property-inclusion: non_null
+  web:
+    resources:
+      static-locations: classpath:/static/
+      cache:
+        period: 604800  # 1주일
+
+logging:
+  level:
+    root: WARN
+    com.example: INFO
+    org.springframework.web: WARN
+  file:
+    name: /var/log/education-platform/application.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+cors:
+  allowed-origins: "*"
+  allowed-methods: GET,POST,PUT,DELETE,OPTIONS
+  allowed-headers: "*"
+  max-age: 3600
+
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false 

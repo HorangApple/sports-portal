@@ -1,0 +1,77 @@
+{
+  "inProgress": [
+    {
+      "id": 1,
+      "title": "AI 개발자를 위한 프론트엔드 기초",
+      "instructor": "김강사",
+      "image": "https://via.placeholder.com/300x180",
+      "progress": 65,
+      "lastAccessed": "2023년 12월 15일",
+      "duration": "8주",
+      "completed": 16,
+      "total": 24
+    },
+    {
+      "id": 2,
+      "title": "데이터 사이언티스트를 위한 웹 애플리케이션 개발",
+      "instructor": "박강사",
+      "image": "https://via.placeholder.com/300x180",
+      "progress": 32,
+      "lastAccessed": "2023년 12월 10일",
+      "duration": "10주",
+      "completed": 8,
+      "total": 25
+    },
+    {
+      "id": 3,
+      "title": "React와 Django 연동하기",
+      "instructor": "최강사",
+      "image": "https://via.placeholder.com/300x180",
+      "progress": 12,
+      "lastAccessed": "2023년 12월 5일",
+      "duration": "6주",
+      "completed": 2,
+      "total": 18
+    }
+  ],
+  "completed": [
+    {
+      "id": 4,
+      "title": "HTML/CSS 기초 마스터하기",
+      "instructor": "이강사",
+      "image": "https://via.placeholder.com/300x180",
+      "completedDate": "2023년 11월 20일",
+      "duration": "4주",
+      "certificateAvailable": true
+    },
+    {
+      "id": 5,
+      "title": "JavaScript 기초와 ES6+",
+      "instructor": "김강사",
+      "image": "https://via.placeholder.com/300x180",
+      "completedDate": "2023년 10월 15일",
+      "duration": "6주",
+      "certificateAvailable": true
+    }
+  ],
+  "saved": [
+    {
+      "id": 6,
+      "title": "Python과 AI 모델 통합하기",
+      "instructor": "정강사",
+      "image": "https://via.placeholder.com/300x180",
+      "price": 99000,
+      "discountPrice": 79000,
+      "savedDate": "2023년 12월 2일"
+    },
+    {
+      "id": 7,
+      "title": "클라우드에 AI 모델 배포하기",
+      "instructor": "장강사",
+      "image": "https://via.placeholder.com/300x180",
+      "price": 129000,
+      "discountPrice": 99000,
+      "savedDate": "2023년 11월 28일"
+    }
+  ]
+} 

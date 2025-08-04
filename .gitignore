@@ -1,0 +1,50 @@
+# 전체 프로젝트 공통
+.DS_Store
+.idea/
+*.log
+*.log.*
+*.tmp
+*.swp
+*.bak
+*.iml
+
+# 환경 설정 파일
+.env
+.env.*
+!.env.example
+
+# Frontend (React/JavaScript)
+/frontend/node_modules/
+/frontend/.pnp
+/frontend/.pnp.js
+/frontend/coverage/
+/frontend/build/
+/frontend/dist/
+/frontend/.env.local
+/frontend/.env.development.local
+/frontend/.env.test.local
+/frontend/.env.production.local
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*
+/frontend/yarn-error.log*
+/frontend/.eslintcache
+
+# Backend (Java)
+/backend/target/
+/backend/build/
+/backend/.gradle/
+/backend/out/
+/backend/.classpath
+/backend/.project
+/backend/.settings/
+/backend/bin/
+/backend/*.class
+/backend/HELP.md
+/backend/.springBeans
+/backend/src/main/**/bin/
+/backend/src/test/**/bin/
+/backend/*.jar
+/backend/*.war
+/backend/*.ear
+/backend/application*.yml
+/backend/application*.properties 
