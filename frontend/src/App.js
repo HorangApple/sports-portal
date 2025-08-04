@@ -9,6 +9,8 @@ import React from 'react';
 import {Route, Routes} from 'react-router-dom';
 
 // 레이아웃 및 페이지 컴포넌트
+import MainLayout from './layouts/MainLayout';
+import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Register from './pages/Register';
 
@@ -33,9 +35,16 @@ function App() {
     <AuthProvider>
       <CourseProvider>
         <Routes>
+          {/* 메인 레이아웃이 적용된 라우트 */}
+          <Route path="/" element={<MainLayout />}>
+            {/* 대시보드 - 애플리케이션 홈 */}
+            <Route index element={<Dashboard />} />
+          </Route>
+
           {/* 인증 관련 라우트 - 레이아웃 없음 */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+
         </Routes>
       </CourseProvider>
     </AuthProvider>
