@@ -1,0 +1,45 @@
+/**
+ * 애플리케이션 메인 컴포넌트
+ * 
+ * 전체 라우팅 구조를 정의하고 필수 컨텍스트 프로바이더를 설정합니다.
+ * 사용자 인증 상태에 따라 접근 제한이 필요한 라우트는 ProtectedRoute 컴포넌트로 감싸야 합니다.
+ */
+
+import React from 'react';
+import {Route, Routes} from 'react-router-dom';
+
+// 레이아웃 및 페이지 컴포넌트
+import Login from './pages/Login';
+import Register from './pages/Register';
+
+// 컨텍스트 프로바이더
+import {AuthProvider} from './contexts/AuthContext';
+import {CourseProvider} from './contexts/CourseContext';
+
+/**
+ * 인증이 필요한 라우트를 보호하는 컴포넌트
+ * 
+ * @param {Object} props - 컴포넌트 프롭스
+ * @param {React.ReactNode} props.children - 자식 컴포넌트
+ */
+// 참고: 실제 구현 시에는 인증 상태 확인 로직 추가 필요
+
+/**
+ * 애플리케이션 메인 컴포넌트
+ */
+function App() {
+  return (
+    // 인증 및 강좌 컨텍스트 제공
+    <AuthProvider>
+      <CourseProvider>
+        <Routes>
+          {/* 인증 관련 라우트 - 레이아웃 없음 */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </CourseProvider>
+    </AuthProvider>
+  );
+}
+
+export default App; 
