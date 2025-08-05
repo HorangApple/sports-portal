@@ -116,6 +116,60 @@ export const learningAPI = {
       throw error;
     }
   },
+
+  // 코스 저장/저장 취소
+  toggleSaveCourse: async (courseId, isSaving = true) => {
+    try {
+      if (isSaving) {
+        const response = await apiClient.post('/api/v1/user/courses/save', { courseId });
+        return response.data;
+      } else {
+        const response = await apiClient.delete(`/api/v1/user/courses/save/${courseId}`);
+        return response.data;
+      }
+    } catch (error) {
+      console.error(`Failed to ${isSaving ? 'save' : 'unsave'} course:`, error);
+      throw error;
+    }
+  },
+
+  // 학습 통계 조회
+  getLearningStats: async () => {
+    try {
+      const response = await apiClient.get('/api/v1/user/learning-stats');
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch learning stats:', error);
+      throw error;
+    }
+  },
+
+  // 코스 수강 신청
+  enrollCourse: async (courseId, applyReason = '') => {
+    try {
+      const response = await apiClient.post('/api/v1/user/courses/enroll', {
+        courseId,
+        applyReason
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Failed to enroll in course:', error);
+      throw error;
+    }
+  },
+
+  // 수강 신청 취소
+  cancelEnrollment: async (enrollmentId, reason = '') => {
+    try {
+      const response = await apiClient.delete(`/api/v1/user/courses/${enrollmentId}`, {
+        params: { reason }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Failed to cancel enrollment:', error);
+      throw error;
+    }
+  }
 };
 
 // 명명된 기본 내보내기로 수정
