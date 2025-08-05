@@ -82,9 +82,46 @@ export const authAPI = {
   }
 };
 
+// 사용자 학습 관련 API
+export const learningAPI = {
+  // 진행 중인 코스 목록 조회
+  getInProgressCourses: async () => {
+    try {
+      const response = await apiClient.get('/api/v1/user/courses/in-progress');
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch in-progress courses:', error);
+      throw error;
+    }
+  },
+
+  // 완료한 코스 목록 조회
+  getCompletedCourses: async () => {
+    try {
+      const response = await apiClient.get('/api/v1/user/courses/completed');
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch completed courses:', error);
+      throw error;
+    }
+  },
+
+  // 저장한 코스 목록 조회
+  getSavedCourses: async () => {
+    try {
+      const response = await apiClient.get('/api/v1/user/courses/saved');
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch saved courses:', error);
+      throw error;
+    }
+  },
+};
+
 // 명명된 기본 내보내기로 수정
 const apiService = {
   auth: authAPI,
+  learning: learningAPI
 };
 
 export default apiService; 
