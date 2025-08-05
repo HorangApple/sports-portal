@@ -85,7 +85,18 @@ const MyLearning = () => {
         console.log('저장한 코스 데이터 수신:', savedData);
         const saved = savedData || []; // 아직 BookmarkAPI가 완전히 구현되지 않았을 수 있음
 
+        // 학습 통계 데이터 가져오기
+        console.log('학습 통계 데이터 요청 시작');
+        const learningStats = await learningAPI.getLearningStats().catch(() => ({
+          totalCourses: inProgress.length + completed.length,
+          totalHoursLearned: 0,
+          certificatesEarned: completed.length,
+          streakDays: 0
+        }));
+        console.log('학습 통계 데이터 수신:', learningStats);
+
         setCourses({ inProgress, completed, saved });
+        setStats(learningStats);
       } catch (err) {
         console.error('데이터 로딩 실패:', err);
         console.error('에러 정보:', err.response?.data);
@@ -102,6 +113,40 @@ const MyLearning = () => {
 
     fetchData();
   }, []);
+
+  const handleRemoveSaved = async (courseId) => {
+    try {
+      // 저장 취소 API 호출
+      await learningAPI.toggleSaveCourse(courseId, false);
+
+      // 상태 업데이트
+      setCourses(prevState => ({
+        ...prevState,
+        saved: prevState.saved.filter(course => course.id !== courseId)
+      }));
+    } catch (err) {
+      console.error('코스 저장 취소 실패:', err);
+      alert('코스 저장 취소 중 오류가 발생했습니다. 다시 시도해주세요.');
+    }
+  };
+
+  const handleCancelEnrollment = async (enrollmentId) => {
+    try {
+      if (window.confirm('수강 신청을 취소하시겠습니까?')) {
+        // 수강 취소 API 호출
+        await learningAPI.cancelEnrollment(enrollmentId);
+
+        // 상태 업데이트
+        setCourses(prevState => ({
+          ...prevState,
+          inProgress: prevState.inProgress.filter(course => course.id !== enrollmentId)
+        }));
+      }
+    } catch (err) {
+      console.error('수강 취소 실패:', err);
+      alert('수강 취소 중 오류가 발생했습니다. 다시 시도해주세요.');
+    }
+  };
 
   if (loading) {
     return (
@@ -280,6 +325,7 @@ const MyLearning = () => {
                             학습하기
                           </Link>
                           <button
+                            onClick={() => handleCancelEnrollment(course.id)}
                             className="mt-4 flex-none block text-center bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-md transition duration-200"
                           >
                             취소
@@ -417,6 +463,7 @@ const MyLearning = () => {
                             자세히 보기
                           </Link>
                           <button
+                            onClick={() => handleRemoveSaved(course.id)}
                             className="flex-none block text-center bg-gray-200 hover:bg-gray-300 text-gray-600 font-medium py-2 px-4 rounded-md transition duration-200"
                           >
                             삭제
