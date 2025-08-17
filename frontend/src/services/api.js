@@ -185,6 +185,7 @@ export const courseAPI = {
       console.error('Failed to fetch all recommendations:', error);
       throw error;
     }
+  },
 
   // 캘린더 일정 조회
   getCalendarEvents: async (params = {}) => {
