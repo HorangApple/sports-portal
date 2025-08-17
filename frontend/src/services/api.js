@@ -172,6 +172,27 @@ export const learningAPI = {
   }
 };
 
+// 코스 관련 API
+export const courseAPI = {
+  // 캘린더 일정 조회
+  getCalendarEvents: async (params = {}) => {
+    try {
+      const response = await apiClient.get('/api/v1/courses/schedules', { params });
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch calendar events:', error);
+      // 백엔드 API가 준비되지 않은 경우 임시 데이터 반환
+      if (error.response && error.response.status === 404) {
+        console.warn('캘린더 API 엔드포인트가 구현되지 않았습니다. 임시 데이터를 사용합니다.');
+        return {
+          success: true,
+          data: [] // 백엔드에서 실제 데이터를 가져올 수 있을 때까지 빈 배열 반환
+        };
+      }
+      throw error;
+    }
+  }
+};
 // 명명된 기본 내보내기로 수정
 const apiService = {
   auth: authAPI,
