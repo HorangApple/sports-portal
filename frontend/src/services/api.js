@@ -193,6 +193,8 @@ export const courseAPI = {
     }
   }
 };
+
+
 // 명명된 기본 내보내기로 수정
 const apiService = {
   auth: authAPI,
