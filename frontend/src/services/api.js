@@ -174,6 +174,17 @@ export const learningAPI = {
 
 // 코스 관련 API
 export const courseAPI = {
+  // 사용자 맞춤 추천 과정 목록 조회
+  getPersonalizedCourses: async (limit = 5) => {
+    try {
+      const response = await apiClient.get('/api/v1/courses/recommendations/personalized', {
+        params: { limit }
+      });
+    } catch (error) {
+      console.error('Failed to fetch personalized courses:', error);
+    }
+  },
+
   // 모든 추천 과정 목록 조회
   getAllRecommendations: async (limit = 3) => {
     try {
