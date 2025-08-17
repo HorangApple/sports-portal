@@ -174,6 +174,18 @@ export const learningAPI = {
 
 // 코스 관련 API
 export const courseAPI = {
+  // 모든 추천 과정 목록 조회
+  getAllRecommendations: async (limit = 3) => {
+    try {
+      const response = await apiClient.get('/api/v1/courses/recommendations', {
+        params: { limit }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch all recommendations:', error);
+      throw error;
+    }
+
   // 캘린더 일정 조회
   getCalendarEvents: async (params = {}) => {
     try {
