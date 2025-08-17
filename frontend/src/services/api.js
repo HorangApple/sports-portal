@@ -180,8 +180,10 @@ export const courseAPI = {
       const response = await apiClient.get('/api/v1/courses/recommendations/personalized', {
         params: { limit }
       });
+      return response.data;
     } catch (error) {
       console.error('Failed to fetch personalized courses:', error);
+      throw error;
     }
   },
 
