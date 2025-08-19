@@ -31,6 +31,17 @@ public class AuthController {
     private final UserService userService;
 
     /**
+     * 기능 테스트를 위한 API 구현
+     * @return hello world 문자열 응답
+     */
+    @PostMapping("/func-test")
+    public String funcTest() {
+        System.out.println("호출 됨");
+        System.out.println("1등 하자");
+        return "hello world";
+    }
+
+    /**
      * 사용자 로그인을 처리하고 JWT 토큰을 발급
      * @param request 로그인 요청 데이터
      * @return 로그인 응답 (JWT 토큰 및 사용자 정보)
