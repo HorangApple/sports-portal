@@ -37,7 +37,7 @@ public class AuthController {
     @PostMapping("/func-test")
     public String funcTest() {
         System.out.println("호출 됨");
-        System.out.println("1등 하자");
+        System.out.println("1등 하자.");
         return "hello world";
     }
 
