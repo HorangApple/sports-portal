@@ -220,11 +220,82 @@ export const courseAPI = {
   }
 };
 
+// 북마크 관련 API
+export const bookmarkAPI = {
+  // 북마크한 과정 목록 조회
+  getBookmarkedCourses: async () => {
+    try {
+      const response = await apiClient.get('/api/v1/bookmarks/courses');
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch bookmarked courses:', error);
+      throw error;
+    }
+  },
+
+  // 북마크한 과정 목록 페이징 조회
+  getBookmarkedCoursesPaged: async (page = 0, size = 10) => {
+    try {
+      const response = await apiClient.get('/api/v1/bookmarks/courses/paged', {
+        params: { page, size }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch bookmarked courses with pagination:', error);
+      throw error;
+    }
+  },
+
+  // 과정 북마크 추가
+  addBookmark: async (courseId) => {
+    try {
+      const response = await apiClient.post(`/api/v1/bookmarks/courses/${courseId}`);
+      return response.data;
+    } catch (error) {
+      console.error(`Failed to add bookmark for course ${courseId}:`, error);
+      throw error;
+    }
+  },
+
+  // 과정 북마크 삭제
+  removeBookmark: async (courseId) => {
+    try {
+      const response = await apiClient.delete(`/api/v1/bookmarks/courses/${courseId}`);
+      return response.data;
+    } catch (error) {
+      console.error(`Failed to remove bookmark for course ${courseId}:`, error);
+      throw error;
+    }
+  },
+
+  // 과정 북마크 여부 확인
+  checkBookmarkStatus: async (courseId) => {
+    try {
+      const response = await apiClient.get(`/api/v1/bookmarks/courses/${courseId}/status`);
+      return response.data;
+    } catch (error) {
+      console.error(`Failed to check bookmark status for course ${courseId}:`, error);
+      throw error;
+    }
+  },
+
+  // 북마크한 과정 수 조회
+  getBookmarkCount: async () => {
+    try {
+      const response = await apiClient.get('/api/v1/bookmarks/count');
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch bookmark count:', error);
+      throw error;
+    }
+  }
+};
 
 // 명명된 기본 내보내기로 수정
 const apiService = {
   auth: authAPI,
-  learning: learningAPI
+  learning: learningAPI,
+  bookmark: bookmarkAPI
 };
 
 export default apiService; 
