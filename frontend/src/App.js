@@ -46,6 +46,9 @@ function App() {
           <Route path="/" element={<MainLayout />}>
             {/* 대시보드 - 애플리케이션 홈 */}
             <Route index element={<Dashboard />} />
+
+            {/* 나의 학습 페이지 - 인증 필요 */}
+            <Route path="my-learning" element={<MyLearning />} />
           </Route>
 
           {/* 인증 관련 라우트 - 레이아웃 없음 */}
