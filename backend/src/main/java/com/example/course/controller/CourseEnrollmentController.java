@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 수강신청 관련 API를 제공하는 컨트롤러
+ * 수강신청 관련 API를 제공하는 컨트롤러 .
  */
 @RestController
 @RequestMapping("/api/v1/user/courses")
@@ -40,20 +40,6 @@ public class CourseEnrollmentController {
     }
 
     /**
-     * 완료한 과정 목록 조회
-     * @param authentication 인증 정보
-     * @return 완료한 과정 목록
-     */
-    @GetMapping("/completed")
-    public ResponseEntity<List<CourseEnrollmentResponse>> getCompletedCourses(Authentication authentication) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        Long userId = Long.parseLong(userDetails.getUsername());
-        
-        List<CourseEnrollmentResponse> completedCourses = enrollmentService.getCompletedCourses(userId);
-        return ResponseEntity.ok(completedCourses);
-    }
-
-    /**
      * 과정 수강 신청
      * @param authentication 인증 정보
      * @param request 수강신청 요청 정보
@@ -63,11 +49,7 @@ public class CourseEnrollmentController {
     public ResponseEntity<CourseEnrollmentResponse> enrollCourse(
             Authentication authentication,
             @Valid @RequestBody CourseEnrollmentRequest request) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        Long userId = Long.parseLong(userDetails.getUsername());
-
-        CourseEnrollmentResponse enrollment = enrollmentService.enrollCourse(userId, request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(enrollment);
+        return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
 
     /**
