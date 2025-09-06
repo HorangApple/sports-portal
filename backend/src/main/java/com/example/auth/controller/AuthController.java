@@ -36,20 +36,8 @@ public class AuthController {
      */
     @PostMapping("/func-test")
     public String funcTest() {
-        System.out.println("호출 됨");
         System.out.println("1등 하자.");
         return "hello world";
-    }
-
-    /**
-     * 사용자 로그인을 처리하고 JWT 토큰을 발급
-     * @param request 로그인 요청 데이터
-     * @return 로그인 응답 (JWT 토큰 및 사용자 정보)
-     */
-    @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
-        LoginResponse response = authService.login(request.getEmail(), request.getPassword());
-        return ResponseEntity.ok(response);
     }
 
     /**
