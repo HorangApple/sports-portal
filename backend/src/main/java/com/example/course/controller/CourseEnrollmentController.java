@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 수강신청 관련 API를 제공하는 컨트롤러
+ * 수강신청 관련 API를 제공하는 컨트롤러 .
  */
 @RestController
 @RequestMapping("/api/v1/user/courses")
