@@ -82,9 +82,220 @@ export const authAPI = {
   }
 };
 
+// 사용자 학습 관련 API
+export const learningAPI = {
+  // 진행 중인 코스 목록 조회
+  getInProgressCourses: async () => {
+    try {
+      const response = await apiClient.get('/api/v1/user/courses/in-progress');
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch in-progress courses:', error);
+      throw error;
+    }
+  },
+
+  // 완료한 코스 목록 조회
+  getCompletedCourses: async () => {
+    try {
+      const response = await apiClient.get('/api/v1/user/courses/completed');
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch completed courses:', error);
+      throw error;
+    }
+  },
+
+  // 저장한 코스 목록 조회
+  getSavedCourses: async () => {
+    try {
+      const response = await apiClient.get('/api/v1/user/courses/saved');
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch saved courses:', error);
+      throw error;
+    }
+  },
+
+  // 코스 저장/저장 취소
+  toggleSaveCourse: async (courseId, isSaving = true) => {
+    try {
+      if (isSaving) {
+        const response = await apiClient.post('/api/v1/user/courses/save', { courseId });
+        return response.data;
+      } else {
+        const response = await apiClient.delete(`/api/v1/user/courses/save/${courseId}`);
+        return response.data;
+      }
+    } catch (error) {
+      console.error(`Failed to ${isSaving ? 'save' : 'unsave'} course:`, error);
+      throw error;
+    }
+  },
+
+  // 학습 통계 조회
+  getLearningStats: async () => {
+    try {
+      const response = await apiClient.get('/api/v1/user/learning-stats');
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch learning stats:', error);
+      throw error;
+    }
+  },
+
+  // 코스 수강 신청
+  enrollCourse: async (courseId, applyReason = '') => {
+    try {
+      const response = await apiClient.post('/api/v1/user/courses/enroll', {
+        courseId,
+        applyReason
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Failed to enroll in course:', error);
+      throw error;
+    }
+  },
+
+  // 수강 신청 취소
+  cancelEnrollment: async (enrollmentId, reason = '') => {
+    try {
+      const response = await apiClient.delete(`/api/v1/user/courses/${enrollmentId}`, {
+        params: { reason }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Failed to cancel enrollment:', error);
+      throw error;
+    }
+  }
+};
+
+// 코스 관련 API
+export const courseAPI = {
+  // 사용자 맞춤 추천 과정 목록 조회
+  getPersonalizedCourses: async (limit = 5) => {
+    try {
+      const response = await apiClient.get('/api/v1/courses/recommendations/personalized', {
+        params: { limit }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch personalized courses:', error);
+      throw error;
+    }
+  },
+
+  // 모든 추천 과정 목록 조회
+  getAllRecommendations: async (limit = 3) => {
+    try {
+      const response = await apiClient.get('/api/v1/courses/recommendations', {
+        params: { limit }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch all recommendations:', error);
+      throw error;
+    }
+  },
+
+  // 캘린더 일정 조회
+  getCalendarEvents: async (params = {}) => {
+    try {
+      const response = await apiClient.get('/api/v1/courses/schedules', { params });
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch calendar events:', error);
+      // 백엔드 API가 준비되지 않은 경우 임시 데이터 반환
+      if (error.response && error.response.status === 404) {
+        console.warn('캘린더 API 엔드포인트가 구현되지 않았습니다. 임시 데이터를 사용합니다.');
+        return {
+          success: true,
+          data: [] // 백엔드에서 실제 데이터를 가져올 수 있을 때까지 빈 배열 반환
+        };
+      }
+      throw error;
+    }
+  }
+};
+
+// 북마크 관련 API
+export const bookmarkAPI = {
+  // 북마크한 과정 목록 조회
+  getBookmarkedCourses: async () => {
+    try {
+      const response = await apiClient.get('/api/v1/bookmarks/courses');
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch bookmarked courses:', error);
+      throw error;
+    }
+  },
+
+  // 북마크한 과정 목록 페이징 조회
+  getBookmarkedCoursesPaged: async (page = 0, size = 10) => {
+    try {
+      const response = await apiClient.get('/api/v1/bookmarks/courses/paged', {
+        params: { page, size }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch bookmarked courses with pagination:', error);
+      throw error;
+    }
+  },
+
+  // 과정 북마크 추가
+  addBookmark: async (courseId) => {
+    try {
+      const response = await apiClient.post(`/api/v1/bookmarks/courses/${courseId}`);
+      return response.data;
+    } catch (error) {
+      console.error(`Failed to add bookmark for course ${courseId}:`, error);
+      throw error;
+    }
+  },
+
+  // 과정 북마크 삭제
+  removeBookmark: async (courseId) => {
+    try {
+      const response = await apiClient.delete(`/api/v1/bookmarks/courses/${courseId}`);
+      return response.data;
+    } catch (error) {
+      console.error(`Failed to remove bookmark for course ${courseId}:`, error);
+      throw error;
+    }
+  },
+
+  // 과정 북마크 여부 확인
+  checkBookmarkStatus: async (courseId) => {
+    try {
+      const response = await apiClient.get(`/api/v1/bookmarks/courses/${courseId}/status`);
+      return response.data;
+    } catch (error) {
+      console.error(`Failed to check bookmark status for course ${courseId}:`, error);
+      throw error;
+    }
+  },
+
+  // 북마크한 과정 수 조회
+  getBookmarkCount: async () => {
+    try {
+      const response = await apiClient.get('/api/v1/bookmarks/count');
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch bookmark count:', error);
+      throw error;
+    }
+  }
+};
+
 // 명명된 기본 내보내기로 수정
 const apiService = {
   auth: authAPI,
+  learning: learningAPI,
+  bookmark: bookmarkAPI
 };
 
 export default apiService; 

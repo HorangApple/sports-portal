@@ -10,7 +10,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 /**
- * 로그인 페이지 컴포넌트
+ * 로그인 페이지 컴포넌트.
  */
 const Login = () => {
   // 라우터 훅
